@@ -15,6 +15,12 @@ const decryptData = (ciphertext) => {
     }
 };
 
+const decryptTask = (task) => {
+    const taskObj = task.toObject ? task.toObject() : { ...task };
+    taskObj.description = decryptData(taskObj.description);
+    return taskObj;
+};
+
 // @desc    Create new task
 // @route   POST /api/tasks
 export const createTask = async (req, res) => {
@@ -34,7 +40,7 @@ export const createTask = async (req, res) => {
             status: status || 'pending',
         });
 
-        res.status(201).json(task);
+        res.status(201).json(decryptTask(task));
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error: error.message });
     }
@@ -61,11 +67,7 @@ export const getTasks = async (req, res) => {
         const total = await Task.countDocuments(query);
         const tasks = await Task.find(query).skip(skip).limit(limit).sort({ createdAt: -1 });
 
-        const decryptedTasks = tasks.map(task => {
-            const taskObj = task.toObject();
-            taskObj.description = decryptData(taskObj.description);
-            return taskObj;
-        });
+        const decryptedTasks = tasks.map(decryptTask);
 
         res.status(200).json({
             tasks: decryptedTasks,
@@ -86,8 +88,8 @@ export const updateTask = async (req, res) => {
 
         if (!task) return res.status(404).json({ message: 'Task not found' });
 
-        if (task.user.toString() !== req.user.id) {
-            return res.status(401).json({ message: 'User not authorized' });
+        if (task.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: 'User not authorized' });
         }
 
         const updateData = { ...req.body };
@@ -96,7 +98,7 @@ export const updateTask = async (req, res) => {
         }
 
         task = await Task.findByIdAndUpdate(req.params.id, updateData, { new: true });
-        res.status(200).json(task);
+        res.status(200).json(decryptTask(task));
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error: error.message });
     }
@@ -110,8 +112,8 @@ export const deleteTask = async (req, res) => {
 
         if (!task) return res.status(404).json({ message: 'Task not found' });
 
-        if (task.user.toString() !== req.user.id) {
-            return res.status(401).json({ message: 'User not authorized' });
+        if (task.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: 'User not authorized' });
         }
 
         await task.deleteOne();
