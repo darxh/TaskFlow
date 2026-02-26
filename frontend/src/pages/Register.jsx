@@ -22,47 +22,59 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <Toaster position="top-center" reverseOrder={false} />
-            <div className="bg-white p-8 rounded-lg shadow-md w-96">
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="min-h-screen flex items-center justify-center bg-slate-900 font-sans selection:bg-indigo-500/30">
+            <Toaster position="bottom-right" toastOptions={{ style: { background: '#1e293b', color: '#fff' } }} />
+            
+            <div className="bg-slate-800/50 p-8 rounded-2xl shadow-xl border border-slate-700/50 backdrop-blur-sm w-full max-w-md mx-4">
+                <div className="text-center mb-8">
+                    <h2 className="text-2xl font-bold text-slate-200 tracking-tight">Create Account</h2>
+                    <p className="text-sm text-slate-400 mt-2">Join to start organizing your workspace</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Name</label>
+                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Name</label>
                         <input 
                             type="text" 
                             required 
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="John Doe"
+                            className="w-full bg-slate-900/50 border border-slate-700/50 rounded-lg px-4 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
+                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Email</label>
                         <input 
                             type="email" 
                             required 
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="you@example.com"
+                            className="w-full bg-slate-900/50 border border-slate-700/50 rounded-lg px-4 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
+                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Password</label>
                         <input 
                             type="password" 
                             required 
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="••••••••"
+                            className="w-full bg-slate-900/50 border border-slate-700/50 rounded-lg px-4 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-lg transition-all shadow-md shadow-indigo-900/20 mt-2">
                         Sign Up
                     </button>
                 </form>
-                <p className="mt-4 text-center text-sm text-gray-600">
-                    Already have an account? <Link to="/login" className="text-blue-600 hover:text-blue-500">Login</Link>
+                
+                <p className="mt-6 text-center text-sm text-slate-400">
+                    Already have an account?{' '}
+                    <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
+                        Sign in
+                    </Link>
                 </p>
             </div>
         </div>
