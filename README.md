@@ -2,6 +2,10 @@
 
 A production-ready full-stack Task Management app with JWT authentication, AES encryption, and role-based access control.
 
+Live Application: https://task-flow-iota-eight.vercel.app/
+<br>
+GitHub Repository: https://github.com/darxh/TaskFlow
+
 ## 🏗️ Architecture Overview
 
 ```
