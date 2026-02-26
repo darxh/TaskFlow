@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
+
+app.use('/api/auth', authRoutes);
 
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'success', message: 'API is running smoothly.' });
